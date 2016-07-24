@@ -1,0 +1,4 @@
+env/
+clockserver/clockserver/local_settings.py
+*.pyc
+*.sqlite3
