@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Create Virtualenv and use it
+if [ ! -d "$PWD/.env" ]; then
+    virtualenv $PWD/.env
+fi
+source $PWD/.env/bin/activate
+
+# Create temp folder and init current install base
+if [ ! -d "$PWD/temp" ]; then
+    mkdir $PWD/temp
+fi
+pip freeze > $PWD/temp/python-pip-freeze
+cp $PWD/config/supervisor/alarm.conf $PWD/temp/supervisor-freeze
+
+# Make sure package is up to date
+echo "Checkout of last stable version..."
+git co stable && git pull
+echo "Done with git."
+
+# Update python environment if necessary
+PIP_DIFF=$(diff $PWD/temp/python-pip-freeze $PWD/config/requirements.txt)
+if [ "$PIP_DIFF" != "" ]; then
+    echo "Updating python dependencies..."
+    pip install -r $PWD/config/requirements.txt
+    echo "Done with python."
+else
+    echo "No python dependency update required."
+fi

@@ -1,0 +1,4 @@
+BASE_DIR=/home/pi/AlarmClock
+
+# Crontab to fetch new code every minute
+* * * * *   cd BASE_DIR && make pull
