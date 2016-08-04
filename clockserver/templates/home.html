@@ -1,14 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row" ng-controller="ClockDisplayCtrl">
-  <div class="col-md-12">
-    <div class="well">
-      <h1 class="text-center">
-        <strong>[[ current_date | date: 'HH:mm:ss' ]]</strong>
-      </h1>
-      <h5 class="text-center">[[ current_date | date: 'EEEE d/M' ]]</h5>
-    </div>
+<div class="container fill">
+  <div class="row" ng-controller="ClockDisplayCtrl">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td class="td-30" colspan="3">&nbsp;</td>
+        </tr>
+        <tr>
+          <td rowspan="2" class="time">
+            <h1 class="text-center">
+              <strong>[[ current_date | date: 'HH:mm:ss' ]]</strong>
+            </h1>
+            <h5 class="text-center">[[ current_date | date: 'EEEE d/M' ]]</h5>
+          </td>
+          <td class="text-center weather">
+            <i class="wi wi-day-sunny"></i>
+          </td>
+          <td class="text-center weather">
+            24
+            <i class="wi wi-celsius"></i>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-center weather">
+            <i class="wi wi-day-sunny"></i>
+          </td>
+          <td class="text-center weather">
+            24
+            <i class="wi wi-celsius"></i>
+          </td>
+        </tr>
+        <tr>
+          <td class="td-30" colspan="3">&nbsp;</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 {% endblock %}
