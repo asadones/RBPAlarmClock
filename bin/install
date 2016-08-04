@@ -1,38 +1,43 @@
 #!/bin/bash
 
+DIR=/home/pi/AlarmClock
+
 # Create Virtualenv and use it
-if [ ! -d "$PWD/.env" ]; then
-    virtualenv $PWD/.env
+if [ ! -d "$DIR/.env" ]; then
+    virtualenv $DIR/.env
 fi
-source $PWD/.env/bin/activate
+source $DIR/.env/bin/activate
 
 # Create temp folder and init current install base
-if [ ! -d "$PWD/temp" ]; then
-    mkdir $PWD/temp
+if [ ! -d "$DIR/temp" ]; then
+    mkdir $DIR/temp
 fi
-pip freeze > $PWD/temp/python-pip-freeze
-cp $PWD/config/supervisor/alarm.conf $PWD/temp/supervisor-freeze
+pip freeze > $DIR/temp/python-pip-freeze
+cp $DIR/config/supervisor/alarm.conf $DIR/temp/supervisor-freeze
 
 # Make sure package is up to date
 echo "Checkout of last stable version..."
+CURRENT_DIR=$PWD
+cd $DIR
 git co stable && git pull
+cd $CURRENT_DIR
 echo "Done with git."
 
 # Update python environment if necessary
-PIP_DIFF=$(diff $PWD/temp/python-pip-freeze $PWD/config/requirements.txt)
+PIP_DIFF=$(diff $DIR/temp/python-pip-freeze $DIR/config/requirements.txt)
 if [ "$PIP_DIFF" != "" ]; then
     echo "Updating python dependencies..."
-    pip install -r $PWD/config/requirements.txt
+    pip install -r $DIR/config/requirements.txt
     echo "Done with python."
 else
     echo "No python dependency update required."
 fi
 
 # Update supervisor if necessary
-SV_DIFF=$(diff $PWD/temp/supervisor-freeze $PWD/config/supervisor/alarm.conf)
+SV_DIFF=$(diff $DIR/temp/supervisor-freeze $DIR/config/supervisor/alarm.conf)
 if [ "$PIP_DIFF" != "" ]; then
     echo "Updating supervisor dependencies..."
-    cp $PWD/config/supervisor/alarm.conf /etc/supervisor/conf.d/alarm.conf
+    cp $DIR/config/supervisor/alarm.conf /etc/supervisor/conf.d/alarm.conf
     supervisorctl update
     echo "Done with supervisor."
 else
