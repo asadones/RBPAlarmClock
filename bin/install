@@ -27,3 +27,14 @@ if [ "$PIP_DIFF" != "" ]; then
 else
     echo "No python dependency update required."
 fi
+
+# Update supervisor if necessary
+SV_DIFF=$(diff $PWD/temp/supervisor-freeze $PWD/config/supervisor/alarm.conf)
+if [ "$PIP_DIFF" != "" ]; then
+    echo "Updating supervisor dependencies..."
+    cp $PWD/config/supervisor/alarm.conf /etc/supervisor/conf.d/alarm.conf
+    supervisorctl update
+    echo "Done with supervisor."
+else
+    echo "No supervisor update required."
+fi
