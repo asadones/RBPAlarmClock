@@ -77,7 +77,9 @@ class WeatherForecastView(APIView):
         data = json.loads(response.content)
         return Response({
             'status': 'success',
-            'forecast': [handle_weather(weather) for weather in data['list']],
+            'forecast': [
+                handle_weather(weather)
+                for weather in sorted(data['list'], key=lambda x: x['dt'])],
             'location': ', '.join([
                 data['city']['name'],
                 data['city']['country'],

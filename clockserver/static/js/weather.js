@@ -51,7 +51,7 @@ angular.module('AlarmClock.weather', [
           function (response) {
             $scope.forecast = [
               buildItem(response.forecast[0]),
-              buildItem(response.forecast[3]),
+              buildItem(response.forecast[1]),
               buildItem(response.forecast[2])
             ];
             $timeout(refreshForecast, 3600000);
