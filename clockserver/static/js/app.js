@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('AlarmClock', [
-  'AlarmClock.clock'
+  'ngResource',
+  'AlarmClock.clock',
+  'AlarmClock.weather'
 ]).config(function($interpolateProvider) {
   $interpolateProvider.startSymbol('[[');
   $interpolateProvider.endSymbol(']]');

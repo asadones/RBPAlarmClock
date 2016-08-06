@@ -2,38 +2,48 @@
 
 {% block content %}
 <div class="container fill">
-  <div class="row" ng-controller="ClockDisplayCtrl">
-    <table class="table">
+  <div class="row fill"
+       ng-controller="ClockDisplayCtrl">
+    <table class="table fill">
       <tbody>
         <tr>
-          <td class="td-30" colspan="3">&nbsp;</td>
+          <td class="td-30" colspan="4">&nbsp;</td>
         </tr>
         <tr>
-          <td rowspan="2" class="time">
+          <td rowspan="2" class="time vert-align">
             <h1 class="text-center">
               <strong>[[ current_date | date: 'HH:mm:ss' ]]</strong>
             </h1>
             <h5 class="text-center">[[ current_date | date: 'EEEE d/M' ]]</h5>
           </td>
-          <td class="text-center weather">
-            <i class="wi wi-day-sunny"></i>
+          <td class="text-center weather vert-align"
+              colspan="3"
+              ng-controller="CurrentWeatherCtrl">
+            <p class="current-weather-label text-center">
+              Current Weather in [[ weather.location ]]
+            </p>
+            <p ng-show="weather.status === 'success'">
+              <i class="wi [[ weather.weather.icon ]]"></i>
+              [[ weather.weather.temperature ]]
+              <i class="wi wi-celsius"></i>
+            </p>
           </td>
-          <td class="text-center weather">
-            24
-            <i class="wi wi-celsius"></i>
+        </tr>
+        <tr ng-controller="WeatherForecastCtrl">
+          <td class="weather-sm vert-align"
+              ng-repeat="item in forecast">
+            <p class="text-center forecast-time">
+              [[ item.date | date: 'HH:mm' ]]
+            </p>
+            <p class="text-center">
+              <i class="wi [[ item.icon ]]"></i>
+              [[ item.temperature ]]
+              <i class="wi wi-celsius"></i>
+            </p>
           </td>
         </tr>
         <tr>
-          <td class="text-center weather">
-            <i class="wi wi-day-sunny"></i>
-          </td>
-          <td class="text-center weather">
-            24
-            <i class="wi wi-celsius"></i>
-          </td>
-        </tr>
-        <tr>
-          <td class="td-30" colspan="3">&nbsp;</td>
+          <td class="td-30" colspan="4">&nbsp;</td>
         </tr>
       </tbody>
     </table>

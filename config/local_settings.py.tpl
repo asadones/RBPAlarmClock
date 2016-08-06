@@ -1,0 +1,7 @@
+SECRET_KEY = ''
+DEBUG = False
+
+
+OPEN_WEATHER_MAP_API_ENDPOINT = 'http://api.openweathermap.org/data/2.5/'
+OPEN_WEATHER_MAP_API_KEY = ''
+OPEN_WEATHER_MAP_LOCATION_ID = ''

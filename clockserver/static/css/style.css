@@ -1,17 +1,38 @@
+html {
+  height: 100%;
+}
+
+body {
+  background-color: #6F6D90;
+  color: #DCD2E1;
+  height: 100%;
+}
+
+
+.table tbody>tr>td.vert-align{
+  vertical-align: middle;
+}
+
 .fill {
   min-height: 100%;
   height: 100%;
   padding: 0;
+  margin: 0;
   width: 100%;
 }
 
 td.td-30 {
   width: 30%;
+  background-color: #4F4468;
 }
 
 td.time {
   width: 70%;
   vertical-align: middle;
+}
+
+p.current-weather-label {
+  font-size: 20px;
 }
 
 td.time h1 {
@@ -25,4 +46,17 @@ td.time h5 {
 .weather {
   font-size: 80px;
   vertical-align: middle;
+}
+
+.weather i.wi, .weather-sm i.wi {
+  color: #80A9BE;
+}
+
+.weather-sm {
+  font-size: 30px;
+  vertical-align: middle;
+}
+
+.forecast-time {
+  font-size: 15px;
 }
