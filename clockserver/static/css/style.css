@@ -32,19 +32,19 @@ td.time {
 }
 
 p.current-weather-label {
-  font-size: 20px;
+  font-size: 10px;
 }
 
 td.time h1 {
-  font-size: 160px;
+  font-size: 80px;
 }
 
 td.time h5 {
-  font-size: 60px;
+  font-size: 30px;
 }
 
 .weather {
-  font-size: 80px;
+  font-size: 40px;
   vertical-align: middle;
 }
 
@@ -53,10 +53,10 @@ td.time h5 {
 }
 
 .weather-sm {
-  font-size: 30px;
+  font-size: 15px;
   vertical-align: middle;
 }
 
 .forecast-time {
-  font-size: 15px;
+  font-size: 8px;
 }
