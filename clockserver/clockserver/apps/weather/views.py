@@ -1,13 +1,16 @@
+import calendar
 import json
+import pytz
 import requests
 
+from datetime import datetime
 from django.conf import settings
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 
-WEATHER_ICON_MAP = {
+WEATHER_ICON_DAY_MAP = {
     'clear sky': 'wi-day-sunny',
     'few clouds': 'wi-day-cloudy',
     'scattered clouds': 'wi-day-cloudy',
@@ -19,16 +22,40 @@ WEATHER_ICON_MAP = {
     'mist': 'wi-day-fog',
 }
 
+WEATHER_ICON_NIGHT_MAP = {
+    'clear sky': 'wi-night-clear',
+    'few clouds': 'wi-night-alt-partly-cloudy',
+    'scattered clouds': 'wi-night-alt-cloudy',
+    'broken clouds': 'wi-night-alt-cloudy',
+    'shower rain': 'wi-night-alt-showers',
+    'rain': 'wi-night-alt-rain',
+    'thunderstorm': 'wi-day-alt-lightning',
+    'snow': 'wi-night-alt-snow',
+    'mist': 'wi-night-fog',
+}
 
-def _get_icon(description):
-    return WEATHER_ICON_MAP.get(description)
+
+def _get_icon(description, sunrise=None, sunset=None):
+    now = datetime.now(pytz.UTC)
+    if sunrise and sunset and is_nighttime(now, sunrise, sunset):
+        return WEATHER_ICON_NIGHT_MAP.get(description)
+    return WEATHER_ICON_DAY_MAP.get(description)
+
+
+def is_nighttime(dtime, sunrise, sunset):
+    utc_timestamp = calendar.timegm(dtime.utctimetuple())
+    return utc_timestamp < sunrise or utc_timestamp > sunset
 
 
 def handle_weather(data):
     return {
         'temperature': int(data['main']['temp']),
         'label': data['weather'][0]['main'],
-        'icon': _get_icon(data['weather'][0]['description']),
+        'icon': _get_icon(
+            data['weather'][0]['description'],
+            sunrise=data.get('sys', {}).get('sunrise'),
+            sunset=data.get('sys', {}).get('sunset'),
+        ),
         'timestamp': data['dt'],
     }
 
