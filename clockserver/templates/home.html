@@ -19,14 +19,17 @@
           <td class="text-center weather vert-align"
               colspan="3"
               ng-controller="CurrentWeatherCtrl">
-            <p class="current-weather-label text-center">
-              Current Weather in [[ weather.location ]]
-            </p>
-            <p ng-show="weather.status === 'success'">
-              <i class="wi [[ weather.weather.icon ]]"></i>
-              [[ weather.weather.temperature ]]
-              <i class="wi wi-celsius"></i>
-            </p>
+            <section ng-show="weather.status == 'success'">
+              <p class="current-weather-label">
+                Current Weather in [[ weather.location ]]
+              </p>
+              <p>
+                <i class="wi [[ weather.weather.icon ]]"></i>
+                [[ weather.weather.temperature ]]
+                <i class="wi wi-celsius"></i>
+              </p>
+              <p class="current-weather-label">[[ weather.weather.label ]]</p>
+            </section>
           </td>
         </tr>
         <tr ng-controller="WeatherForecastCtrl">
@@ -40,6 +43,7 @@
               [[ item.temperature ]]
               <i class="wi wi-celsius"></i>
             </p>
+            <p class="text-center">[[ item.label ]]</p>
           </td>
         </tr>
         <tr>

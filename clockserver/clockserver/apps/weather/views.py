@@ -16,6 +16,7 @@ WEATHER_ICON_DAY_MAP = {
     'scattered clouds': 'wi-day-cloudy',
     'broken clouds': 'wi-day-cloudy',
     'shower rain': 'wi-day-showers',
+    'light rain': 'wi-day-hail',
     'rain': 'wi-day-rain',
     'thunderstorm': 'wi-day-thunderstorm',
     'snow': 'wi-day-snow',
@@ -28,6 +29,7 @@ WEATHER_ICON_NIGHT_MAP = {
     'scattered clouds': 'wi-night-alt-cloudy',
     'broken clouds': 'wi-night-alt-cloudy',
     'shower rain': 'wi-night-alt-showers',
+    'light rain': 'wi-night-alt-hail',
     'rain': 'wi-night-alt-rain',
     'thunderstorm': 'wi-day-alt-lightning',
     'snow': 'wi-night-alt-snow',
@@ -50,7 +52,7 @@ def is_nighttime(dtime, sunrise, sunset):
 def handle_weather(data):
     return {
         'temperature': int(data['main']['temp']),
-        'label': data['weather'][0]['main'],
+        'label': data['weather'][0]['description'],
         'icon': _get_icon(
             data['weather'][0]['description'],
             sunrise=data.get('sys', {}).get('sunrise'),

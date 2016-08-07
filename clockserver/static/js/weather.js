@@ -42,7 +42,8 @@ angular.module('AlarmClock.weather', [
           return {
             date: new Date(item.timestamp * 1000),
             icon: item.icon,
-            temperature: item.temperature
+            temperature: item.temperature,
+            label: item.label
           };
         }
 
